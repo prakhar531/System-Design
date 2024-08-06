@@ -104,7 +104,7 @@ While NoSQL is good when the availability of big data is more crucial, SQL is va
 
 NoSQL is also a wise choice when dealing with large or constantly changing data sets, flexible data models, or requirements that don’t fit into a relational model. Document databases, like CouchDB, MongoDB, and Amazon DocumentDB, are useful for handling large amounts of unstructured data.
 
-## \***\*Key Highlights on SQL vs NoSQL\*\***
+## **Key Highlights on SQL vs NoSQL**
 
 | SQL                                                                                                                                                                                                | NoSQL                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
