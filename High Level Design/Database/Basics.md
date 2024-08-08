@@ -145,14 +145,14 @@ If the transaction fails after the completion of **T1** but before the completio
 
 ### **Consistency**
 
-This means that integrity constraints must be maintained so that the database is consistent before and after the transaction. It refers to the correctness of a database. Referring to the example above, the total amount before and after the transaction must be maintained.  
+This means that **integrity constraints must be maintained so that the database is consistent before and after the transaction**. It refers to the correctness of a database. Referring to the example above, the total amount before and after the transaction must be maintained.  
 Total **before T** occurs = **500 + 200 = 700**.  
 Total **after T occurs** = **400 + 300 = 700**.  
 Therefore, the database is **consistent**. Inconsistency occurs if **T1** completes but **T2** fails. As a result, T is incomplete.
 
 ### **Isolation**
 
-This property ensures that multiple transactions can occur concurrently without leading to the inconsistency of the database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved if these were executed serially in some order.
+This property **ensures that multiple transactions can occur concurrently without leading to the inconsistency** of the database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved if these were executed serially in some order.
 
 Let **X = 500**, **Y = 500**.  
 Consider two transactions **T** and **T'**.
@@ -180,15 +180,6 @@ This property ensures that once the transaction has completed execution, the upd
 
 The **ACID** properties, in totality, provide a mechanism to ensure the correctness and consistency of a database in a way such that each transaction is a group of operations that acts as a single unit, produces consistent results, acts in isolation from other operations, and updates that it makes are durably stored.
 
-ACID properties are the four key characteristics that define the reliability and consistency of a transaction in a Database Management System (DBMS). The acronym ACID stands for Atomicity, Consistency, Isolation, and Durability. Here is a brief description of each of these properties:
-
-1. **Atomicity**: Ensures that a transaction is treated as a single, indivisible unit of work. Either all the operations within the transaction are completed successfully, or none of them are. If any part of the transaction fails, the entire transaction is rolled back to its original state, ensuring data consistency and integrity.
-2. **Consistency**: Ensures that a transaction takes the database from one consistent state to another consistent state. The database is in a consistent state both before and after the transaction is executed. Constraints, such as unique keys and foreign keys, must be maintained to ensure data consistency.
-3. **Isolation**: Ensures that multiple transactions can execute concurrently without interfering with each other. Each transaction must be isolated from other transactions until it is completed. This isolation prevents dirty reads, non-repeatable reads, and phantom reads.
-4. **Durability**: Ensures that once a transaction is committed, its changes are permanent and will survive any subsequent system failures. The transaction’s changes are saved to the database permanently, and even if the system crashes, the changes remain intact and can be recovered.
-
-Overall, ACID properties provide a framework for ensuring data consistency, integrity, and reliability in DBMS. They ensure that transactions are executed in a reliable and consistent manner, even in the presence of system failures, network issues, or other problems. These properties make DBMS a reliable and efficient tool for managing data in modern organizations.
-
 ### **Advantages of ACID Properties in DBMS:**
 
 1. **Data Consistency**: ACID properties ensure that the data remains consistent and accurate after any transaction execution.
@@ -202,20 +193,6 @@ Overall, ACID properties provide a framework for ensuring data consistency, inte
 2. **Scalability**: The ACID properties may cause scalability issues in large distributed systems where multiple transactions occur concurrently.
 3. **Complexity**: Implementing the ACID properties can increase the complexity of the system and require significant expertise and resources.
 
-Overall, the advantages of ACID properties in DBMS outweigh the disadvantages. They provide a reliable and consistent approach to data management, ensuring data integrity, accuracy, and reliability. However, in some cases, the overhead of implementing ACID properties can cause performance and scalability issues. Therefore, it’s important to balance the benefits of ACID properties against the specific needs and requirements of the system.
-
-- **A ⇒ Atomicity**
-  - All statements in a transaction will either be fully completed or fully rolled back in case of failure.
-- **C ⇒ Consistency**
-  - Data across tables will always be consistent.
-  - Deleting primary keys without deleting foreign keys is not permitted.
-- **I ⇒ Isolation**
-  - One transaction will not interfere with the changes being done in another transaction.
-  - Isolation ensures data integrity.
-- **D ⇒ Durability**
-  - Do not accidentally delete data ever.
-  - If your DB crashes, your data should not be lost.
-  - A transaction that has been committed should always persist in DB, even in case of system crashes.
 
 ### Transaction ⇒ Group of statements that is executed together
 
