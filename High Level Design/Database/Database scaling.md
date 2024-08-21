@@ -171,3 +171,31 @@ All secondary nodes replicate the actual data changes. For example, if a row is 
 The binary log records change to database tables on the primary node at the record level. To create a replica of the primary node, the secondary node reads this data and changes its records accordingly.
 
 Row-based replication doesn’t have the same difficulties as WAL because it doesn’t require information about data layout inside the database engine.
+
+It perform more copies but it also provide more consistency to database.
+
+# Sharding and Partitioning
+
+## What is Sharding?
+
+Process of distributing data across multiple DB instances.
+Sharding is dividing a database in smaller database and each handles different data. i.e. they do not sync with each other.
+
+## What is Partitioning?
+
+Process of splitting a subset of data within the same DB instance.
+Partitioning is creating multiple partition in single database.
+
+## Advantages of Sharding
+
+- Higher availability
+- Increase overall storage capacity
+- Higher reads and writes
+
+## Disadvantages of Sharding:
+
+- Cross-shard queries are very expensive:
+  Cross sharding: finding data in other shard. It is very expensive.
+- Complexto implemen
+
+![alt text](<./assets/Screenshot (199).png>)
