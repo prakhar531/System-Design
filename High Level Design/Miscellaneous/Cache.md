@@ -165,6 +165,8 @@ To avoid SPOF and high load on a single cache instance, we split up cache data a
 
 ![alt text](<./assets/Screenshot (208).png>)
 
+---
+
 ## Caching Levels
 
 Caching happens primarily at 4 different levels
@@ -173,8 +175,6 @@ Caching happens primarily at 4 different levels
 - Content Delivery Networks (CDNs)
 - Remote Cache (Redis)
 - Database Caching
-
----
 
 ### Client Side Caching
 
@@ -196,8 +196,6 @@ Caching happens primarily at 4 different levels
 - Stale Data: Cached information might be outdated (stale); mechanisms are needed to validate and update cached data
 - Cache Size Management: Local storage resources are limited, efficient cache policies must be enforced (example: LRU cache eviction policy)
 
----
-
 ### Content Delivery Network (CDNs)
 
 - CDNs are a set of servers distributed across the world, with the intent of a CDN (server or datacenter) being closer to a significant user base
@@ -218,8 +216,6 @@ CDNs use PULL-based strategy for updating data in CDNs
 
 Browser Caching + CDNs are a very strong way to reduce website response time, and reduce server load
 
----
-
 ### Remote Cache (Redis)
 
 Remote caching involves a dedicated server or cluster where applications can read and write data
@@ -236,8 +232,6 @@ Remote caching involves a dedicated server or cluster where applications can rea
 - Memory Leak: Every key stored should have an expiration, else data will stay forever in Redis
 - Redis is way too smaller in size compared to a DB, thus we have to be particularly careful about what we cache
 
----
-
 ### Database Caching
 
 - Involves storing results sets or frequently used computations to prevent complex DB queries
@@ -246,3 +240,84 @@ Remote caching involves a dedicated server or cluster where applications can rea
 **Examples:**
 
 - Pre Computing news feed for social media users, top 20 posts for each daily active users
+
+---
+
+## Messaging Queues (MQ)
+
+A Messaging Queue (MQ) is a component in a system that manages messages. It allows
+applications to communicate by sending messages to each other without needing to be
+connected simultaneously. One system puts a message onto the queue, and another system
+retrieves that message later, processes it, and maybe even sends a response.
+
+Messaging queues are used primarily for asynchronous processing (Examples:
+Pre-processing of images and videos, sending bulk emails, spinning up AWS instances, etc)
+
+### Why do we need Asynchronous processing
+
+For providing better user experience. Users won’t have to wait for the process to finish. They
+can continue with their regular work, while we do the heavy lifting on the backend.
+
+We can provide a ‘Status’ on the UI for users to know when the job is completed.
+
+### Synchronous Processing Vs Asynchronous Processing
+
+![alt text](./assets/messageQueue.png)
+
+### Why do we use Messaging Queues
+
+To enable 2 or more services to interact with each other by exchanging messages.
+Messaging queues are effective when we have the following 2 use-cases:
+
+- Long running tasks (Example: Uploading large video files)
+- Trigger dependent tasks (Example: Pre-processing videos after video upload,
+  automated caption generation, etc)
+
+Message Queues are also called Message Brokers
+
+### Features of Messaging Queues
+
+- Helps connect different subsystems
+- Brokers act as a buffer for the messages
+- Can retain messages for ‘N’ Days
+- Can re-queue messages if not already deleted
+
+---
+
+### Why Should We Use MQs
+
+- Decoupling: Helps decouple the producer from the consumer. Producer services
+  don’t need to know about the consumer services
+- Scalability: In case of server overload, messages will still be available in the queue,
+  and can be consumed when the overload is mitigated by adding more nodes
+- Resilience and Fault Tolerance: If a service / server fails, messages can still be
+  retained in the queue, ensuring that no user data is lost. Once the service is back up
+  and running, it can start processing the messages from where it left off.
+- Asynchronous Communication: Systems can continue execution without waiting
+  for a response from the receiver. Extremely useful in case of long-running tasks
+- Ordering and Priority: FIFO queues can ensure that messages are processed in
+  the order that they arrive
+- Load Levelling: Helps in smoothing out the processing needs when there are spikes
+  in load
+
+### Popular Messaging Queues
+
+- RabbitMQ
+- Apache Kafka
+- Amazon SQS
+- Microsoft Azure Service Bus
+- Google Cloud Pub/Sub
+
+### MQ Best Practices
+
+- Idempotency: Ensure that processing a message more than once does not have a
+  different effect. This is crucial because sometimes a consumer might crash after
+  processing a message but before acknowledging its receipt, leading to the same
+  message being processed multiple times.
+- Monitoring and Alerting: Always monitor the queue length and processing times to
+  detect problems early
+- Dead Letter Queues (DLQ): Use DLQs to handle messages that can't be
+  processed. This ensures that problematic messages don't block the processing of
+  other messages.
+- Batch Processing: Some MQ systems allow consuming messages in batches,
+  which can improve performance.
