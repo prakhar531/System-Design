@@ -76,7 +76,7 @@ It can be used for load balancing in distributed web services, where requests ar
 
 we can always replicate one server to get better distribution. This is actual implementation. we can also maintain sticky session with consistent hashing algorithm. For non consistent hashing algo we need to explicitly map traffic.
 
-![alt text](image.png)
+![alt text](./assets/rplicaserverhashing.png)
 
 ---
 
@@ -95,10 +95,10 @@ we can always replicate one server to get better distribution. This is actual im
 - Size of a post: 5 MB
 
 **Formula:**  
-DAU*Posts per day_Size of a post \_30 (month)* 12 (year)
+DAU\*Posts per day_Size of a post \* 30 (month)\* 12 (year)
 
 **Calculation:**  
-1 _ 2 _ 5 \* 360 = 3600 MB = 3.6 GB
+1 \* 2 \* 5 \* 360 = 3600 MB = 3.6 GB
 
 ---
 
